@@ -22,7 +22,7 @@ const UserIcon = () => {
             {isAuth ? (
               <CogIcon className="text-primary size-8" />
             ) : (
-              <CogIcon className="text-secondary size-8" />
+              <CogIcon className="text-primary-content size-8" />
             )}
           </button>
         </Tooltip.Trigger>
