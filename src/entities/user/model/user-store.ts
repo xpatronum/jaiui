@@ -14,8 +14,8 @@ interface UserActions {
 type UserStore = UserState & UserActions;
 
 const initialState: UserState = {
-  username: "Иван Иванов",
-  password: "12345",
+  username: "",
+  password: "",
   isAuth: false,
 };
 export const useUserStore = create<UserStore>()((set) => ({

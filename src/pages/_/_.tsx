@@ -1,11 +1,11 @@
-import { UserIcon } from "@/entities/user";
+import { UserButton } from "@/entities/user";
 import { Layout } from "@/shared/ui/layout";
 
 const Page = () => {
   return (
     <Layout>
-      <div className="flex h-16 w-full items-center justify-end px-12">
-        <UserIcon />
+      <div className="flex h-16 w-full items-center justify-end px-4">
+        <UserButton />
       </div>
       <section className="flex grow flex-col items-center justify-center">
         <h1 className="from-primary to-primary-content bg-gradient-to-r bg-clip-text text-9xl font-semibold text-transparent">
