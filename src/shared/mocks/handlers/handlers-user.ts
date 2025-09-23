@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 
-export const handlers = [
+export const handlersUser = [
   http.post<never, { username: string; password: string }, { isAuth: boolean }>(
     "/login",
     async ({ request }) => {

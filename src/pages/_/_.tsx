@@ -1,5 +1,5 @@
 import { UserButton } from "@/entities/user";
-import { Layout } from "@/shared/ui/layout";
+import { Layout } from "@/shared/ui";
 
 const Page = () => {
   return (
