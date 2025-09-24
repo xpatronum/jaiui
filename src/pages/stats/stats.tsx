@@ -4,6 +4,14 @@ import Plot from "react-plotly.js";
 
 import { Layout } from "@/shared/ui";
 
+const toLocaleDateString = (timeStamp: number): string => {
+  return new Date(timeStamp * 1000).toLocaleDateString("ru-RU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
 const Page = () => {
   const [data, setData] = useState<
     Array<{
@@ -31,36 +39,46 @@ const Page = () => {
               {
                 name: "Негативные",
                 marker: { color: "fb2c36" },
-                x: item.positive.x.map((ts) =>
-                  new Date(ts * 1000).toLocaleDateString(),
-                ),
+                x: item.positive.x.map(toLocaleDateString),
                 y: item.positive.y,
                 type: "bar",
               },
               {
                 name: "Нейтральные",
                 marker: { color: "ffdf20" },
-                x: item.positive.x.map((ts) =>
-                  new Date(ts * 1000).toLocaleDateString(),
-                ),
+                x: item.positive.x.map(toLocaleDateString),
                 y: item.positive.y,
                 type: "bar",
               },
               {
                 name: "Положительные",
                 marker: { color: "00c950" },
-                x: item.positive.x.map((ts) =>
-                  new Date(ts * 1000).toLocaleDateString(),
-                ),
+                x: item.positive.x.map(toLocaleDateString),
                 y: item.positive.y,
                 type: "bar",
               },
             ]}
             layout={{
-              width: 320,
-              height: 240,
+              width: 640,
+              height: 480,
+              plot_bgcolor: "#00000000",
+              paper_bgcolor: "#00000000",
+              font: {
+                color: "#fafafa",
+              },
+              xaxis: {
+                color: "#fafafa",
+                linecolor: "#fafafa",
+              },
+              yaxis: {
+                color: "#fafafa",
+                linecolor: "#fafafa",
+              },
               barmode: "stack",
+              showlegend: false,
+              title: { text: item.name },
             }}
+            config={{ staticPlot: true, displayModeBar: false }}
           />
         ))}
 
