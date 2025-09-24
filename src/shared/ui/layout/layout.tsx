@@ -6,7 +6,7 @@ const Layout = (props: LayoutProps) => {
   const { children } = props;
 
   return (
-    <main className="bg-base-100 flex h-screen w-screen flex-col items-center justify-start">
+    <main className="bg-base-100 flex min-h-screen w-screen flex-col items-center justify-start">
       {children}
     </main>
   );
