@@ -20,6 +20,7 @@ const Navigation = () => {
           Главная
         </Link>
         {isAuth && (
+          <>
           <Link 
             to="/reports" 
             className={`px-4 py-2 rounded-lg ${
@@ -30,6 +31,17 @@ const Navigation = () => {
           >
             Аналитика
           </Link>
+          <Link 
+            to="/stats" 
+            className={`px-4 py-2 rounded-lg ${
+              location.pathname === "/stats" 
+                ? "bg-primary text-primary-content" 
+                : "text-white hover:bg-base-300"
+            }`}
+          >
+            Статистика
+          </Link>
+          </>
         )}
       </div>
       
