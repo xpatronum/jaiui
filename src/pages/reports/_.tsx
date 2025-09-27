@@ -1,4 +1,4 @@
-import { ChartSettingsPanel } from "@/entities/report";
+import { ReportsChart, ChartSettingsPanel } from "@/entities/report";
 import { useLoadReports } from "@/entities/report/model/report-api";
 import { Layout } from "@/shared/ui/layout";
 
@@ -13,7 +13,7 @@ const Page = () => {
 
       <section className="flex w-full grow flex-col items-center justify-start p-8">
         <div className="w-full max-w-6xl">
-          <></>
+          <ReportsChart />
         </div>
         <div className="mt-4 w-full max-w-6xl">
           <ChartSettingsPanel />
