@@ -1,12 +1,14 @@
 import type { ReactNode } from "react";
+import { Navigation } from "../navigation/navigation";
 
-type LayoutProps = { children: ReactNode };
+interface LayoutProps {
+  children: ReactNode;
+}
 
-const Layout = (props: LayoutProps) => {
-  const { children } = props;
-
+const Layout = ({ children }: LayoutProps) => {
   return (
     <main className="bg-base-100 flex min-h-screen w-screen flex-col items-center justify-start">
+      <Navigation />
       {children}
     </main>
   );

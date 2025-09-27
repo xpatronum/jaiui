@@ -1,17 +1,16 @@
-import { UserButton } from "@/entities/user";
 import { Layout } from "@/shared/ui";
 
 const Page = () => {
   return (
     <Layout>
-      <div className="flex h-16 w-full items-center justify-end px-4">
-        <UserButton />
-      </div>
       <section className="flex grow flex-col items-center justify-center">
         <h1 className="from-primary to-primary-content bg-gradient-to-r bg-clip-text text-9xl font-semibold text-transparent">
           JAI UI
         </h1>
         <h2 className="text-primary-content text-3xl">developed by JAI team</h2>
+        <p className="mt-4 text-lg text-white">
+          Перейдите в раздел "Аналитика" для просмотра отчетов
+        </p>
       </section>
     </Layout>
   );

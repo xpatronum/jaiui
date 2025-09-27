@@ -1,1 +1,1 @@
-export * from "./router-provider";
+export { RouterProvider } from "./router-provider";

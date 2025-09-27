@@ -1,6 +1,7 @@
 import { http, HttpResponse } from "msw";
 
 export const handlersUser = [
+  // login
   http.post<never, { username: string; password: string }, { isAuth: boolean }>(
     "/login",
     async ({ request }) => {
@@ -13,6 +14,8 @@ export const handlersUser = [
       return HttpResponse.json({ isAuth: false });
     },
   ),
+
+  // logout
   http.post<never, { username: string; password: string }, { isAuth: boolean }>(
     "/logout",
     async ({ request }) => {
