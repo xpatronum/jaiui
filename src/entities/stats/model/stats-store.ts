@@ -10,16 +10,10 @@ interface Word {
   color: string;
 }
 
-interface WordCloud {
-  width: number;
-  height: number;
-  words: Array<Word>;
-}
-
 interface StatsState {
   uuid: string;
   num_records: number;
-  wcloud_figure: WordCloud;
+  wcloud_figure: Array<Word>;
   topics: string[];
   sentiments: string[];
 }
@@ -33,11 +27,7 @@ type StatsStore = StatsState & StatsActions;
 const initialState: StatsState = {
   uuid: "",
   num_records: 0,
-  wcloud_figure: {
-    width: 0,
-    height: 0,
-    words: [],
-  },
+  wcloud_figure: [],
   topics: [],
   sentiments: [],
 };
