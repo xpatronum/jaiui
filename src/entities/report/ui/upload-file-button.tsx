@@ -1,8 +1,11 @@
+import { useStatsStore } from "@/entities/stats";
+import type { StatsResponse } from "@/shared/mocks";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
-import { useRef, useState } from "react";
 import axios from "axios";
+import { useRef, useState } from "react";
 
 const UploadFileButton = () => {
+    const { set } = useStatsStore((state) => state);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -37,10 +40,10 @@ const UploadFileButton = () => {
     
     try {
       const formData = new FormData();
-      formData.append('reportFile', file);
+      formData.append('file', file);
       formData.append('timestamp', new Date().toISOString());
 
-      const response = await axios.post('/api/reports/upload', formData, {
+      const response = await axios.post('/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -55,7 +58,8 @@ const UploadFileButton = () => {
       if (response.status === 200) {
         alert('Файл успешно загружен!');
         // Можно добавить обновление списка отчетов
-        window.location.reload(); // или вызвать функцию обновления данных
+        // window.location.reload(); // или вызвать функцию обновления данных
+        set(response.data as unknown as StatsResponse);
       }
     } catch (error) {
       console.error('Ошибка загрузки файла:', error);

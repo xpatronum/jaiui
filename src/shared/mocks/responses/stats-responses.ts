@@ -8,16 +8,11 @@ interface Word {
   color: string;
 }
 
-interface WordCloud {
-  width: number;
-  height: number;
-  words: Array<Word>;
-}
 
 export interface StatsResponse {
   uuid: string;
   num_records: number;
-  wcloud_figure: WordCloud;
+  wcloud_figure:Array<Word>;
   topics: string[];
   sentiments: string[];
 }
@@ -25,10 +20,7 @@ export interface StatsResponse {
 export const statsResponse: StatsResponse = {
   uuid: "f4b8c8e3-6f3e-4e2b-8f7b-5d6e2c9a1b2c",
   num_records: 1060,
-  wcloud_figure: {
-    width: 800,
-    height: 400,
-    words: [
+  wcloud_figure:[
       {
         text: "акции",
         freq: 1.0,
@@ -1830,7 +1822,6 @@ export const statsResponse: StatsResponse = {
         color: "hsl(177, 70%, 40%)",
       },
     ],
-  },
   topics: ["Кредит", "Ипотека", "ОСАГО"],
   sentiments: ["Плохо", "Хорошо", "Нейтрально"],
 };
