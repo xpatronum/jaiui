@@ -58,7 +58,11 @@ const AccordionContent = (props: AccordionContentProps) => {
 };
 
 const StatsAccordion = () => {
-  const { topics } = useStatsStore((state) => state);
+  const { topics, wcloud_figure } = useStatsStore((state) => state);
+
+  if (wcloud_figure.length === 0) {
+    return null;
+  }
 
   return (
     <Accordion.Root

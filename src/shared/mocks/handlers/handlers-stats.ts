@@ -5,7 +5,7 @@ import { statsResponse } from "../responses";
 import type { StatsResponse } from "../responses";
 
 export const handlersStats = [
-  http.post<never, never, StatsResponse>("\\upload", () => {
+  http.post<never, never, StatsResponse>("/upload", () => {
     return HttpResponse.json(statsResponse);
   }),
 ];

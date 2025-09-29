@@ -1,11 +1,14 @@
-import { useStatsStore } from "@/entities/stats";
-import type { StatsResponse } from "@/shared/mocks";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useRef, useState } from "react";
 
+import { useStatsStore } from "@/entities/stats";
+
+import type { StatsState } from "@/entities/stats";
+
 const UploadFileButton = () => {
-    const { set } = useStatsStore((state) => state);
+  const { update } = useStatsStore((state) => state);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -56,10 +59,7 @@ const UploadFileButton = () => {
       });
 
       if (response.status === 200) {
-        alert('Файл успешно загружен!');
-        // Можно добавить обновление списка отчетов
-        // window.location.reload(); // или вызвать функцию обновления данных
-        set(response.data as unknown as StatsResponse);
+        update(response.data as unknown as Partial<StatsState>);
       }
     } catch (error) {
       console.error('Ошибка загрузки файла:', error);
