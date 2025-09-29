@@ -1,1 +1,1 @@
-export * from "./stats-responses";
+export * from "./stats-response";
