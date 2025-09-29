@@ -69,7 +69,7 @@ const StatsAccordion = () => {
         <AccordionItem value={topic} key={topic}>
           <AccordionTrigger>{topic}</AccordionTrigger>
           <AccordionContent>
-            `Краткая статистика по продукту ${topic}`.
+            {`Краткая статистика по продукту ${topic}.`}
           </AccordionContent>
         </AccordionItem>
       ))}

@@ -7,7 +7,7 @@ import { WordCloud } from "@/entities/stats/ui/word-cloud";
 const Page = () => {
   return (
     <Layout>
-      <div className="flex h-screen w-full flex-col items-center justify-center">
+      <div className="flex h-screen w-full flex-col items-center justify-center gap-4">
         <WordCloud />
         <StatsAccordion />
         <UploadFileButton />
