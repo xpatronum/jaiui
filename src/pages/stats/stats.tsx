@@ -2,7 +2,7 @@ import { StatsAccordion } from "@/entities/stats";
 import { Layout } from "@/shared/ui";
 
 import { UploadFileButton } from "@/entities/report";
-import { WordCloud } from "@/entities/stats/ui/word-cloud";
+import { WordCloud } from "@/entities/stats";
 
 const Page = () => {
   return (
