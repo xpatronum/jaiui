@@ -1,8 +1,8 @@
 import { 
-  ReportsChart, 
-  ChartSettingsPanel, 
-  DownloadChartButton, 
-  UploadFileButton 
+  // ReportsChart, 
+  // ChartSettingsPanel, 
+  // DownloadChartButton, 
+  // UploadFileButton 
 } from "@/entities/report";
 import { useLoadReports } from "@/entities/report/model/report-api";
 import { Layout } from "@/shared/ui/layout";
