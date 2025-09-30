@@ -64,11 +64,16 @@ function WordCloud() {
   }
 
   return (
-    <svg
-      ref={ref}
-      className="bg-base-200 cursor-default rounded-xl"
-      style={{ width: `${width}px`, height: `${height}px` }}
-    />
+    <div className="flex flex-col items-center justify-center gap-4">
+      <span className="text-base-content text-2xl font-semibold">
+        Облако слов отзывов
+      </span>
+      <svg
+        ref={ref}
+        className="bg-base-200 cursor-default rounded-xl"
+        style={{ width: `${width}px`, height: `${height}px` }}
+      />
+    </div>
   );
 }
 

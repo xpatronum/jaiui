@@ -7,7 +7,6 @@ export interface StatsState {
   num_records: number;
   wcloud_figure: Array<CloudWord>;
   topics: string[];
-  sentiments: string[];
 }
 
 interface StatsActions {
@@ -21,8 +20,7 @@ const initialState: StatsState = {
   uuid: "",
   num_records: 0,
   wcloud_figure: [],
-  topics: ["Кредит", "Ипотека", "ОСАГО"],
-  sentiments: ["Плохо", "Хорошо", "Нейтрально"],
+  topics: [],
 };
 
 export const useStatsStore = create<StatsStore>()((set) => ({
