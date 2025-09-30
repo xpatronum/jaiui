@@ -90,14 +90,14 @@ const ReportsChart = () => {
   };
 
   return (
-    <div className="w-full h-96 bg-base-200 rounded-lg p-4">
+    // <div className="w-full h-96 bg-base-200 rounded-lg p-4">
       <Plot
         data={chartData}
         layout={layout}
         config={{ displayModeBar: false }}
         style={{ width: '100%', height: '100%' }}
       />
-    </div>
+    // </div>
   );
 };
 
