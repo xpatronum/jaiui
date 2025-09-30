@@ -91,13 +91,13 @@ export const SentimentChart: React.FC = () => {
   const layout: Partial<PlotlyLayout> = {
     title: {
       text: `Тональности отзывов по времени (агрегация по ${aggregationLabels[aggregationLevel]})`,
-      font: { color: '#FFFFFF', size: 16 }
+      font: { color: '#FFFFFF', size: 18 }
     },
     xaxis: {
-      title: {
-        text: "Дата",
-        font: { color: '#FFFFFF', size: 12 }
-      },
+      // title: {
+      //   text: "Дата",
+      //   font: { color: '#FFFFFF', size: 12 }
+      // },
       type: "date",
       gridcolor: 'rgba(156, 163, 175, 0.5)', // ИЗМЕНИЛ: с прозрачностью 50%
       tickfont: { color: '#FFFFFF' },
@@ -106,10 +106,10 @@ export const SentimentChart: React.FC = () => {
       showgrid: true
     },
     yaxis: {
-      title: {
-        text: "Среднее количество отзывов",
-        font: { color: '#FFFFFF', size: 12 }
-      },
+      // title: {
+      //   text: "Среднее количество отзывов",
+      //   font: { color: '#FFFFFF', size: 12 }
+      // },
       gridcolor: 'rgba(156, 163, 175, 0.5)', // ИЗМЕНИЛ: с прозрачностью 50%
       tickfont: { color: '#FFFFFF' },
       linecolor: 'rgba(156, 163, 175, 0.5)', // ИЗМЕНИЛ: с прозрачностью 50%

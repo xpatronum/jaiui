@@ -45,9 +45,9 @@ const Page = () => {
         </div>
       </section> */}
 
-      <section className="flex w-full grow flex-col items-center justify-start p-8 space-y-6">
+      <section className="flex w-full grow flex-col items-center justify-start p-8 space-y-6 pb-[300px]">
         <div className="w-full max-w-6xl">
-          <h2 className="text-xl font-bold text-white mb-4">Аналитика тональности отзывов</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Тональность отзывов</h2>
           <div className="bg-base-200 rounded-lg p-6">
             <SentimentChart />
           </div>

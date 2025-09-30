@@ -31,7 +31,7 @@ export const UploadSentimentFileButton: React.FC = () => {
       <button
         onClick={handleButtonClick}
         disabled={isLoading}
-        className="rounded-lg bg-green-600 px-6 py-3 text-white font-medium hover:bg-green-700 transition-colors duration-200 disabled:opacity-50 w-fit"
+        className="rounded-lg bg-[#0fe4ea] px-6 py-3 text-base-200 font-medium hover:bg-[#0bc8cd] transition-colors duration-200 disabled:opacity-50 w-fit cursor-pointer"
       >
         {isLoading ? "Загрузка..." : "Загрузить JSON файл"}
       </button>
