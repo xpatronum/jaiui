@@ -1,5 +1,8 @@
 import { Accordion } from "radix-ui";
+import { useEffect } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+
+import { usePollingStore } from "@/entities/polling";
 
 import { useStatsStore } from "../model";
 
@@ -58,22 +61,31 @@ const AccordionContent = (props: AccordionContentProps) => {
 };
 
 const StatsAccordion = () => {
-  const { topics } = useStatsStore((state) => state);
+  const { topics, update } = useStatsStore((state) => state);
+  const { isPolling, progress } = usePollingStore((state) => state);
+
+  useEffect(() => {
+    if (!isPolling && progress === 100) {
+      update({ topics: ["Кредит", "Ипотека", "ОСАГО"] });
+    }
+  }, [isPolling, progress, update]);
 
   return (
-    <Accordion.Root
-      className="bg-base-200 w-4/5 max-w-xl rounded-xl"
-      type="multiple"
-    >
-      {topics.map((topic) => (
-        <AccordionItem value={topic} key={topic}>
-          <AccordionTrigger>{topic}</AccordionTrigger>
-          <AccordionContent>
-            `Краткая статистика по продукту ${topic}`.
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion.Root>
+    <div className="flex w-4/5 max-w-xl flex-col items-center justify-center gap-4">
+      <span className="text-base-content text-2xl font-semibold">
+        Статистика отзывов
+      </span>
+      <Accordion.Root className="bg-base-200 w-full rounded-xl" type="multiple">
+        {topics.map((topic) => (
+          <AccordionItem value={topic} key={topic}>
+            <AccordionTrigger>{topic}</AccordionTrigger>
+            <AccordionContent>
+              {`Краткая статистика по продукту ${topic}.`}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion.Root>
+    </div>
   );
 };
 
