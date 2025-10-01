@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { usePollingStore } from "../model";
 import { useStatsStore } from "@/entities/stats";
 
-const EVENT_SOURCE_URL = "http://localhost:2288/is_done";
+const EVENT_SOURCE_RELATIVE_PATH = "/is_done";
 
 export const usePolling = () => {
   const { isPolling, setIsPolling, setProgress } = usePollingStore(
@@ -16,16 +16,13 @@ export const usePolling = () => {
       return;
     }
 
-    try {
-      // @ts-expect-error
-      if (EVENT_SOURCE_URL === "") {
-        throw new Error("Use polling in development mode");
-      }
-
-      const eventSource = new EventSource(`${EVENT_SOURCE_URL}?uuid=${uuid}`);
+    if (import.meta.env.PROD) {
+      const eventSource = new EventSource(
+        `${import.meta.env.VITE_BASE_URL}${EVENT_SOURCE_RELATIVE_PATH}?uuid=${uuid}`,
+      );
 
       eventSource.onmessage = (event) => {
-        const progress = parseInt(event.data as string, 10);
+        const progress = parseInt(event.data as string);
 
         setProgress(progress);
 
@@ -35,7 +32,7 @@ export const usePolling = () => {
           setIsPolling(false);
         }
       };
-    } catch {
+    } else {
       let progress = 0;
 
       const interval = setInterval(() => {
@@ -48,5 +45,5 @@ export const usePolling = () => {
         }
       }, 100);
     }
-  }, [isPolling, setIsPolling, setProgress]);
+  }, [isPolling, setIsPolling, setProgress, uuid]);
 };

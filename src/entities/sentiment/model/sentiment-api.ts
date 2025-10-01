@@ -1,10 +1,10 @@
-import axios from "axios";
+import { useEffect } from "react";
 
 import { useStatsStore } from "@/entities/stats";
 import { usePollingStore } from "@/entities/polling";
+import { api } from "@/shared/api";
 
 import { useSentimentStore, type SentimentData } from "./sentiment-store";
-import { useEffect } from "react";
 
 export const useLoadSentimentData = () => {
   const { setData, setIsLoading, setError } = useSentimentStore();
@@ -63,7 +63,7 @@ export const usePostSentimentData = () => {
       setError(null);
 
       try {
-        await axios
+        await api
           .post("/ts_render", {
             uuid,
             start_date: timeRange.start,
