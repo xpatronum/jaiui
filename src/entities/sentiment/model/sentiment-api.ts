@@ -53,7 +53,7 @@ export const useLoadSentimentData = () => {
 };
 
 export const usePostSentimentData = () => {
-  const { setData, setIsLoading, setError } = useSentimentStore();
+  const { timeRange, setData, setIsLoading, setError } = useSentimentStore();
   const { uuid } = useStatsStore((state) => state);
   const { isPolling, progress } = usePollingStore((state) => state);
 
@@ -63,11 +63,17 @@ export const usePostSentimentData = () => {
       setError(null);
 
       try {
-        await axios.post("/ts_render", { uuid }).then((response) => {
-          if (response.status === 200) {
-            setData(response.data as unknown as SentimentData);
-          }
-        });
+        await axios
+          .post("/ts_render", {
+            uuid,
+            start_date: timeRange.start,
+            end_date: timeRange.end,
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              setData(response.data as unknown as SentimentData);
+            }
+          });
       } catch (error) {
         setError(
           error instanceof Error ? error.message : "Ошибка загрузки файла",
@@ -80,5 +86,5 @@ export const usePostSentimentData = () => {
     if (!isPolling && progress === 100) {
       postSentimentData();
     }
-  }, [isPolling, progress, setData, setError, setIsLoading, uuid]);
+  }, [isPolling, progress, timeRange, setData, setError, setIsLoading, uuid]);
 };
