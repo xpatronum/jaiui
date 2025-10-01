@@ -1,12 +1,12 @@
 import type { CloudWord } from "@/shared/types";
 
-export interface StatsResponse {
+export interface StatsResponseQuick {
   uuid: string;
   num_records: number;
   wcloud_figure: Array<CloudWord>;
 }
 
-export const statsResponse: StatsResponse = {
+export const statsResponseQuick: StatsResponseQuick = {
   uuid: "f4b8c8e3-6f3e-4e2b-8f7b-5d6e2c9a1b2c",
   num_records: 1060,
   wcloud_figure: [

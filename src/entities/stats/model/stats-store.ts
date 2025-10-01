@@ -1,12 +1,26 @@
 import { create } from "zustand";
 
-import type { CloudWord } from "@/shared/types";
+import type { BlackBoxFigure, CloudWord } from "@/shared/types";
 
 export interface StatsState {
   uuid: string;
   num_records: number;
   wcloud_figure: Array<CloudWord>;
-  topics: string[];
+  topics: Array<string>;
+  dates: Array<number>;
+  min_date: number;
+  max_date: number;
+  nums: Array<{
+    num_positives: number;
+    num_negatives: number;
+    num_neutral: number;
+  }>;
+  samples: Array<{
+    samples_negatives: string[];
+    samples_neutral: string[];
+    samples_positives: string[];
+  }>;
+  figure: BlackBoxFigure;
 }
 
 interface StatsActions {
@@ -21,6 +35,15 @@ const initialState: StatsState = {
   num_records: 0,
   wcloud_figure: [],
   topics: [],
+  dates: [],
+  min_date: 0,
+  max_date: 0,
+  nums: [],
+  samples: [],
+  figure: {
+    data: [],
+    layout: {},
+  },
 };
 
 export const useStatsStore = create<StatsStore>()((set) => ({

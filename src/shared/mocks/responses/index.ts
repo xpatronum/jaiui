@@ -1,1 +1,2 @@
-export * from "./stats-response";
+export * from "./stats-response-slow";
+export * from "./stats-response-quick";
