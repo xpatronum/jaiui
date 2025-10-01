@@ -1,4 +1,3 @@
-import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useRef, useState } from "react";
 
@@ -95,11 +94,10 @@ const UploadFileButton = () => {
       <button
         onClick={handleButtonClick}
         disabled={isUploading}
-        className="flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 font-medium text-white transition-colors duration-200 hover:bg-green-700 disabled:bg-green-400"
+        className="text-base-200 w-fit cursor-pointer rounded-lg bg-[#0fe4ea] px-6 py-3 font-medium transition-colors duration-200 hover:bg-[#0bc8cd] disabled:opacity-50"
         title="Загрузить файл отчета"
       >
-        <ArrowUpTrayIcon className="size-5" />
-        {isUploading ? "Загрузка..." : "Загрузить файл"}
+        {isUploading ? "Загрузка..." : "Загрузить JSON файл"}
       </button>
     </>
   );
