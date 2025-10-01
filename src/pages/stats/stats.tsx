@@ -10,7 +10,7 @@ const Page = () => {
 
   return (
     <Layout>
-      <div className="flex h-screen w-full flex-col items-center justify-center gap-8">
+      <div className="flex w-full grow flex-col items-center justify-center gap-8">
         {!isPolling && progress === 0 && <UploadFileButton />}
         {isPolling && <PollingProgress />}
         {isPolling && <WordCloud />}
