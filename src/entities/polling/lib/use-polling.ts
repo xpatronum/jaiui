@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 
 import { usePollingStore } from "../model";
+import { useStatsStore } from "@/entities/stats";
 
-const EVENT_SOURCE_URL = "";
+const EVENT_SOURCE_URL = "http://localhost:2288/is_done";
 
 export const usePolling = () => {
   const { isPolling, setIsPolling, setProgress } = usePollingStore(
     (state) => state,
   );
+  const { uuid } = useStatsStore((state) => state);
 
   useEffect(() => {
     if (!isPolling) {
@@ -15,14 +17,15 @@ export const usePolling = () => {
     }
 
     try {
+      // @ts-expect-error
       if (EVENT_SOURCE_URL === "") {
         throw new Error("Use polling in development mode");
       }
 
-      const eventSource = new EventSource(EVENT_SOURCE_URL);
+      const eventSource = new EventSource(`${EVENT_SOURCE_URL}?uuid=${uuid}`);
 
-      eventSource.addEventListener("is_done", (event) => {
-        const progress = event.data as number;
+      eventSource.onmessage = (event) => {
+        const progress = parseInt(event.data as string, 10);
 
         setProgress(progress);
 
@@ -31,7 +34,7 @@ export const usePolling = () => {
 
           setIsPolling(false);
         }
-      });
+      };
     } catch {
       let progress = 0;
 
