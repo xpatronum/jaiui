@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useRef, useState } from "react";
 
 import { usePollingStore } from "@/entities/polling";
 import { useStatsStore } from "@/entities/stats";
+import { api } from "@/shared/api";
 
 import type { StatsState } from "@/entities/stats";
 
@@ -52,7 +52,7 @@ const UploadFileButton = () => {
       formData.append("file", file);
       formData.append("timestamp", new Date().toISOString());
 
-      const response = await axios.post("/upload", formData, {
+      const response = await api.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

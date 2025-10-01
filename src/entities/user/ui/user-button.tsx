@@ -3,8 +3,9 @@ import {
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import axios from "axios";
 import { Dialog, VisuallyHidden } from "radix-ui";
+
+import { api } from "@/shared/api";
 
 import { useUserStore } from "../model";
 
@@ -12,7 +13,7 @@ const UserButton = () => {
   const { isAuth, login, logout } = useUserStore((state) => state);
 
   const onLogin = () => {
-    axios
+    api
       .post("/login", { username: "Пользователь", password: "1234" })
       .then(() => {
         login();
@@ -20,7 +21,7 @@ const UserButton = () => {
   };
 
   const onLogout = () => {
-    axios
+    api
       .post("/logout", { username: "Пользователь", password: "1234" })
       .then(() => {
         logout();

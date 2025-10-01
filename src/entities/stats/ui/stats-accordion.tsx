@@ -1,10 +1,10 @@
-import axios from "axios";
 import { Accordion } from "radix-ui";
 import { useEffect } from "react";
 import Plot from "react-plotly.js";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 import { usePollingStore } from "@/entities/polling";
+import { api } from "@/shared/api";
 
 import { useStatsStore, type StatsState } from "../model";
 
@@ -72,7 +72,7 @@ const StatsAccordion = () => {
 
   useEffect(() => {
     if (!isPolling && progress === 100) {
-      axios.post("/render", { uuid }).then((response) => {
+      api.post("/render", { uuid }).then((response) => {
         if (response.status === 200) {
           update(response.data as unknown as Partial<StatsState>);
         }
