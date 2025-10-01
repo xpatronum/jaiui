@@ -9,7 +9,7 @@ export const handlersStats = [
     return HttpResponse.json(statsResponseQuick);
   }),
 
-  http.post<never, never, StatsResponseSlow>("/render", () => {
+  http.post<never, { uuid: string }, StatsResponseSlow>("/render", () => {
     return HttpResponse.json(statsResponseSlow);
   }),
 ];
