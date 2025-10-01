@@ -12,12 +12,13 @@ const Page = () => {
         />
 
         <h2 
-          className="bg-gradient-to-r from-white from-25% to-[#0fe4ea] bg-clip-text text-2xl font-semibold text-transparent"
+          className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#0fe4ea] text-xl font-semibold"
           style={{
-            marginTop: '-32px'
+            marginTop: '-48px'
           }}
         >
-          Designed & Developed by Just Atom
+          {/* Designed & Developed by Just Atom */}
+          justatom.org
         </h2>
       </section>
     </Layout>
