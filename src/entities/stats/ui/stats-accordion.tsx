@@ -57,13 +57,15 @@ const AccordionContent = (props: AccordionContentProps) => {
 
   return (
     <Accordion.Content className="bg-base-200 text-base-content overflow-hidden">
-      <div className="flex flex-col p-5">{children}</div>
+      <div className="flex flex-row items-center justify-center p-4">
+        {children}
+      </div>
     </Accordion.Content>
   );
 };
 
 const StatsAccordion = () => {
-  const { uuid, topics, nums, figure, update } = useStatsStore(
+  const { uuid, topics, nums, samples, figure, update } = useStatsStore(
     (state) => state,
   );
   const { isPolling, progress } = usePollingStore((state) => state);
@@ -89,28 +91,91 @@ const StatsAccordion = () => {
           <AccordionItem value={topic} key={index}>
             <AccordionTrigger>{topic}</AccordionTrigger>
             <AccordionContent>
-              {`Краткая статистика по продукту ${topic}.`}
               <Plot
                 className="self-center"
                 data={[
                   {
                     values: [
                       nums[index].num_positives,
-                      nums[index].num_neutral,
                       nums[index].num_negatives,
+                      nums[index].num_neutral,
                     ],
-                    labels: ["Положительные", "Нейтральные", "Негативные"],
+                    labels: ["Позитивные", "Негативные", "Нейтральные"],
+                    marker: { colors: ["#10B981", "#EF4444", "#6B7280"] },
                     type: "pie",
                     textinfo: "label+percent",
                   },
                 ]}
                 layout={{
-                  width: 360,
-                  height: 240,
-                  paper_bgcolor: "rgba(0,0,0,0)",
+                  width: 480,
+                  height: 480,
                   plot_bgcolor: "rgba(0,0,0,0)",
+                  paper_bgcolor: "rgba(0,0,0,0)",
+                  font: {
+                    color: "#FFFFFF",
+                  },
+                  margin: {
+                    t: 160,
+                  },
+                  showlegend: false,
+                  title: {
+                    text: "Общее количество отзывов",
+                    font: { color: "#FFFFFF", size: 18 },
+                  },
+                }}
+                config={{
+                  displayModeBar: false,
+                  displaylogo: false,
+                  responsive: true,
                 }}
               />
+              <div className="flex grow flex-col gap-8">
+                <header className="text-lg font-semibold">
+                  Популярные отзывы
+                </header>
+                {samples[index].samples_positives.length > 0 && (
+                  <ul className="flex w-full flex-col gap-2">
+                    {samples[index].samples_positives
+                      .slice(0, 3)
+                      .map((sample, sampleIndex) => (
+                        <li
+                          key={`${index}+${sampleIndex}`}
+                          className="rounded-xl bg-[#10B981] p-2"
+                        >
+                          {`${sample.slice(0, 30)}...`}
+                        </li>
+                      ))}
+                  </ul>
+                )}
+                {samples[index].samples_negatives.length > 0 && (
+                  <ul className="flex w-full flex-col gap-2">
+                    {samples[index].samples_negatives
+                      .slice(0, 3)
+                      .map((sample, sampleIndex) => (
+                        <li
+                          key={`${index}-${sampleIndex}`}
+                          className="rounded-xl bg-[#EF4444] p-2"
+                        >
+                          {`${sample.slice(0, 30)}...`}
+                        </li>
+                      ))}
+                  </ul>
+                )}
+                {samples[index].samples_neutral.length > 0 && (
+                  <ul className="flex flex-col gap-2">
+                    {samples[index].samples_neutral
+                      .slice(0, 3)
+                      .map((sample, sampleIndex) => (
+                        <li
+                          key={`${index}_${sampleIndex}`}
+                          className="rounded-xl bg-[#6B7280] p-2"
+                        >
+                          {`${sample.slice(0, 30)}...`}
+                        </li>
+                      ))}
+                  </ul>
+                )}
+              </div>
             </AccordionContent>
           </AccordionItem>
         ))}
