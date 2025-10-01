@@ -1,10 +1,12 @@
+import axios from "axios";
 import { Accordion } from "radix-ui";
 import { useEffect } from "react";
+import Plot from "react-plotly.js";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 import { usePollingStore } from "@/entities/polling";
 
-import { useStatsStore } from "../model";
+import { useStatsStore, type StatsState } from "../model";
 
 import type { ReactNode } from "react";
 
@@ -55,32 +57,60 @@ const AccordionContent = (props: AccordionContentProps) => {
 
   return (
     <Accordion.Content className="bg-base-200 text-base-content overflow-hidden">
-      <div className="p-5">{children}</div>
+      <div className="flex flex-col p-5">{children}</div>
     </Accordion.Content>
   );
 };
 
 const StatsAccordion = () => {
-  const { topics, update } = useStatsStore((state) => state);
+  const { uuid, topics, nums, figure, update } = useStatsStore(
+    (state) => state,
+  );
   const { isPolling, progress } = usePollingStore((state) => state);
 
   useEffect(() => {
     if (!isPolling && progress === 100) {
-      update({ topics: ["Кредит", "Ипотека", "ОСАГО"] });
+      axios.post("/render", { uuid }).then((response) => {
+        if (response.status === 200) {
+          update(response.data as unknown as Partial<StatsState>);
+        }
+      });
     }
-  }, [isPolling, progress, update]);
+  }, [isPolling, progress, update, uuid]);
 
   return (
-    <div className="flex w-4/5 max-w-xl flex-col items-center justify-center gap-4">
+    <div className="flex w-4/5 max-w-4xl flex-col items-center justify-center gap-4">
       <span className="text-base-content text-2xl font-semibold">
         Статистика отзывов
       </span>
+      <Plot {...figure} />
       <Accordion.Root className="bg-base-200 w-full rounded-xl" type="multiple">
-        {topics.map((topic) => (
-          <AccordionItem value={topic} key={topic}>
+        {topics.map((topic, index) => (
+          <AccordionItem value={topic} key={index}>
             <AccordionTrigger>{topic}</AccordionTrigger>
             <AccordionContent>
               {`Краткая статистика по продукту ${topic}.`}
+              <Plot
+                className="self-center"
+                data={[
+                  {
+                    values: [
+                      nums[index].num_positives,
+                      nums[index].num_neutral,
+                      nums[index].num_negatives,
+                    ],
+                    labels: ["Положительные", "Нейтральные", "Негативные"],
+                    type: "pie",
+                    textinfo: "label+percent",
+                  },
+                ]}
+                layout={{
+                  width: 360,
+                  height: 240,
+                  paper_bgcolor: "rgba(0,0,0,0)",
+                  plot_bgcolor: "rgba(0,0,0,0)",
+                }}
+              />
             </AccordionContent>
           </AccordionItem>
         ))}
