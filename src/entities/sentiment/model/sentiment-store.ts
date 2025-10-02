@@ -31,9 +31,23 @@ interface SentimentActions {
 
 type SentimentStore = SentimentState & SentimentActions;
 
-// Начальное состояние - последние 30 дней
-const initialStartDate = new Date();
-initialStartDate.setDate(initialStartDate.getDate() - 30);
+// Функция для получения полного диапазона дат из данных
+const getFullTimeRangeFromData = (data: SentimentData | null) => {
+  if (!data || data.dates.length === 0) {
+    const defaultStart = new Date();
+    defaultStart.setDate(defaultStart.getDate() - 30);
+    return {
+      start: defaultStart,
+      end: new Date()
+    };
+  }
+  
+  const timestamps = data.dates.sort((a, b) => a - b);
+  return {
+    start: new Date(timestamps[0] * 1000),
+    end: new Date(timestamps[timestamps.length - 1] * 1000)
+  };
+};
 
 const initialState: SentimentState = {
   originalData: null,
@@ -42,8 +56,8 @@ const initialState: SentimentState = {
   isLoading: false,
   error: null,
   timeRange: {
-    start: initialStartDate,
-    end: new Date(),
+    start: new Date(0), // Будет установлено при загрузке данных
+    end: new Date() // Текущая дата
   },
   aggregationLevel: 'week'
 };
@@ -52,18 +66,20 @@ export const useSentimentStore = create<SentimentStore>()((set, get) => ({
   ...initialState,
 
   setData: (data) => {
-    const { timeRange, aggregationLevel } = get();
+    // Устанавливаем полный диапазон дат из данных
+    const fullTimeRange = getFullTimeRangeFromData(data);
     
-    // Фильтруем данные по временному диапазону
-    const filtered = filterDataByTimeRange(data, timeRange);
+    // Фильтруем данные по полному диапазону
+    const filtered = filterDataByTimeRange(data, fullTimeRange);
     
     // Агрегируем данные
-    const aggregated = aggregateData(filtered, aggregationLevel);
+    const aggregated = aggregateData(filtered, get().aggregationLevel);
     
     set({
       originalData: data,
       filteredData: filtered,
       aggregatedData: aggregated,
+      timeRange: fullTimeRange, // Устанавливаем полный диапазон
       error: null,
     });
   },
@@ -111,7 +127,8 @@ export const useSentimentStore = create<SentimentStore>()((set, get) => ({
     originalData: null, 
     filteredData: null, 
     aggregatedData: null, 
-    error: null 
+    error: null,
+    timeRange: getFullTimeRangeFromData(null) // Сбрасываем к дефолтному диапазону
   }),
 }));
 
@@ -133,7 +150,7 @@ function filterDataByTimeRange(data: SentimentData, timeRange: { start: Date; en
   };
 }
 
-// Функция агрегации данных
+// Функция агрегации данных (остается без изменений)
 function aggregateData(data: SentimentData, level: 'day' | 'week' | 'month' | 'year'): SentimentData {
   if (data.dates.length === 0) return data;
   
