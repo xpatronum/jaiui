@@ -13,7 +13,7 @@ const Page = () => {
 
   return (
     <Layout>
-      <section className="flex w-full grow flex-col items-center justify-start space-y-6 p-8 pb-[300px]">
+      <section className="flex w-full grow flex-col items-center justify-start space-y-6 p-8 pb-[400px]">
         <div className="w-full max-w-6xl">
           <h2 className="mb-4 text-xl font-bold text-white">
             Тональность отзывов

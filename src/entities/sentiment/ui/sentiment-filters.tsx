@@ -10,12 +10,12 @@ export const SentimentFilters: React.FC = () => {
     setAggregationLevel,
   } = useSentimentStore();
 
-  const handleStartDateChange = (date: Date) => {
-    setTimeRange(date, timeRange.end);
+  const handleStartDateChange = (timestamp: number) => {
+    setTimeRange(new Date(timestamp * 1000), timeRange.end);
   };
 
-  const handleEndDateChange = (date: Date) => {
-    setTimeRange(timeRange.start, date);
+  const handleEndDateChange = (timestamp: number) => {
+    setTimeRange(timeRange.start, new Date(timestamp * 1000));
   };
 
   const handleAggregationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
