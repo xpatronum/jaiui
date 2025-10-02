@@ -3,14 +3,15 @@ import { Navigation } from "../navigation/navigation";
 
 interface LayoutProps {
   children: ReactNode;
+  isPolling?: boolean;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, isPolling = false }: LayoutProps) => {
   return (
-    <main className="bg-base-100 flex min-h-screen w-screen flex-col items-center justify-start">
-      <Navigation />
-      {children}
-    </main>
+    <div className="flex min-h-screen flex-col bg-base-100">
+      <Navigation isPolling={isPolling} />
+      <main className="flex grow flex-col">{children}</main>
+    </div>
   );
 };
 

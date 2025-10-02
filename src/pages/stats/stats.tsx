@@ -9,7 +9,7 @@ const Page = () => {
   const { isPolling, progress } = usePollingStore((state) => state);
 
   return (
-    <Layout>
+    <Layout isPolling={isPolling}>
       <div className="flex w-full grow flex-col items-center justify-center gap-8">
         {!isPolling && progress === 0 && <UploadFileButton />}
         {isPolling && <PollingProgress />}

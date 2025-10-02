@@ -2,7 +2,11 @@ import { Link, useLocation } from "react-router";
 import { UserButton } from "@/entities/user";
 import Label from "../../assets/images/background-removed.png";
 
-const Navigation = () => {
+interface NavigationProps {
+  isPolling?: boolean;
+}
+
+const Navigation = ({ isPolling = false }: NavigationProps) => {
   const location = useLocation();
 
   return (
@@ -14,6 +18,7 @@ const Navigation = () => {
             width: "96px",
             height: "48px",
           }}
+          className={isPolling ? "pointer-events-none opacity-50" : ""}
         >
           <img src={Label} draggable="false" />
         </Link>
@@ -23,6 +28,10 @@ const Navigation = () => {
             location.pathname === "/reports"
               ? "text-base-200 bg-[#0fe4ea]"
               : "hover:bg-base-300 text-white"
+          } ${
+            isPolling 
+              ? "pointer-events-none cursor-not-allowed opacity-50" 
+              : ""
           }`}
         >
           Аналитика
@@ -33,6 +42,10 @@ const Navigation = () => {
             location.pathname === "/stats"
               ? "text-base-200 bg-[#0fe4ea]"
               : "hover:bg-base-300 text-white"
+          } ${
+            isPolling 
+              ? "pointer-events-none cursor-not-allowed opacity-50" 
+              : ""
           }`}
         >
           Статистика
